@@ -1,5 +1,6 @@
 package com.jikim.webservice.springboot.web;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,5 +37,11 @@ public class PostsApiController {
 		@RequestBody PostsUpdateRequestDto requestDto
 	) {
 		return postsService.update(id, requestDto);
+	}
+
+	@DeleteMapping("/api/v1/posts/{id}")
+	public Long deletePosts(@PathVariable Long id) {
+		postsService.deletePosts(id);
+		return id;
 	}
 }
