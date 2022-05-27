@@ -1,10 +1,14 @@
 package com.jikim.webservice.springboot.service.posts;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.jikim.webservice.springboot.domain.posts.Posts;
 import com.jikim.webservice.springboot.domain.posts.PostsRepository;
+import com.jikim.webservice.springboot.web.dto.PostsListResponseDto;
 import com.jikim.webservice.springboot.web.dto.PostsResponseDto;
 import com.jikim.webservice.springboot.web.dto.PostsSaveRequestDto;
 import com.jikim.webservice.springboot.web.dto.PostsUpdateRequestDto;
@@ -40,5 +44,12 @@ public class PostsService {
 
 		posts.update(requestDto.getTitle(), requestDto.getContent());
 		return id;
+	}
+
+	@Transactional(readOnly = true)
+	public List<PostsListResponseDto> findAllDesc() {
+		return postsRepository.findAllOByOrderByIdDesc().stream()
+			.map(PostsListResponseDto::new)
+			.collect(Collectors.toList());
 	}
 }
