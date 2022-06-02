@@ -11,7 +11,7 @@ spring:
       enabled: true
 
   profiles:
-    include: oauth, real-db
+    include: oauth, real, real-db
 
   session:
     store-type: jdbc
